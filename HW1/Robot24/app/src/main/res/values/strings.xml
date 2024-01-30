@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Robot24</string>
+    <string name="yellow_message">Yellow Clicked</string>
+</resources>
