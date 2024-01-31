@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageButton
 import robot.Robot
 
 class MainActivity : AppCompatActivity() {
@@ -13,8 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var yellowImg : ImageView
     private lateinit var redImg : ImageView
     private lateinit var whiteImg : ImageView
-    private lateinit var counter_clockwise : Button
-    private lateinit var clockwise : Button
+    private lateinit var counter_clockwise : AppCompatImageButton
+    private lateinit var clockwise : AppCompatImageButton
 
     private var turnCount = 0
 //    private val robots listOf()
@@ -32,9 +33,9 @@ class MainActivity : AppCompatActivity() {
         counter_clockwise = findViewById(R.id.rotateCounterClockwise)
         clockwise = findViewById(R.id.rotateClockwise)
 
-//        yellowImg = findViewById(R.id.yellowRobot)
-//        redImg = findViewById(R.id.redRobot)
-//        whiteImg = findViewById(R.id.whiteRobot)
+        yellowImg = findViewById(R.id.yellowRobot)
+        redImg = findViewById(R.id.redRobot)
+        whiteImg = findViewById(R.id.whiteRobot)
 
         counter_clockwise.setOnClickListener {
             counterClockwiseTurn()
@@ -61,9 +62,14 @@ class MainActivity : AppCompatActivity() {
         setImages()
     }
     private fun clockwiseTurn() {
-        turnCount -= 1
-        if (turnCount < 1) {
-            turnCount = 3
+        if (turnCount == 0) {
+            turnCount = 1
+        }
+        else {
+            turnCount -= 1
+            if (turnCount < 1) {
+                turnCount = 3
+            }
         }
         setImages()
     }
