@@ -13,24 +13,64 @@
         android:id="@+id/yellowRobot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/yellow_large" />
+        app:srcCompat="@drawable/yellow_large"
+        tools:ignore="ContentDescription"
+        />
 
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        tools:ignore="ContentDescription"
+        >
 
         <ImageView
             android:id="@+id/redRobot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/red_large" />
+            app:srcCompat="@drawable/red_large"
+            />
 
         <ImageView
             android:id="@+id/whiteRobot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/white_large" />
+            app:srcCompat="@drawable/white_large"
+            />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        tools:ignore="ContentDescription"
+        >
+
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        app:srcCompat="@drawable/rot_clockwise"
+        android:background="@drawable/buttons"
+        android:padding="16dp"
+        android:contentDescription="@string/Rotate_Clockwise" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        app:srcCompat="@drawable/rot_counter"
+        android:background="@drawable/buttons"
+        android:padding="16dp"
+        android:contentDescription="@string/Rotate_Counter_Clockwise" />
+
+    </LinearLayout>
+
+
+
 </LinearLayout>
