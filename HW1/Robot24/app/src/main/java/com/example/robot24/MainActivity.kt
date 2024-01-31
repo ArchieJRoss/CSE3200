@@ -3,6 +3,7 @@ package com.example.robot24
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import robot.Robot
@@ -12,6 +13,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var yellowImg : ImageView
     private lateinit var redImg : ImageView
     private lateinit var whiteImg : ImageView
+    private lateinit var counter_clockwise : Button
+    private lateinit var clockwise : Button
 
     private var turnCount = 0
 //    private val robots listOf()
@@ -26,24 +29,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        yellowImg = findViewById(R.id.yellowRobot)
-        redImg = findViewById(R.id.redRobot)
-        whiteImg = findViewById(R.id.whiteRobot)
+        counter_clockwise = findViewById(R.id.rotateCounterClockwise)
+        clockwise = findViewById(R.id.rotateClockwise)
 
-        redImg.setOnClickListener {
-            advanceTurn()
+//        yellowImg = findViewById(R.id.yellowRobot)
+//        redImg = findViewById(R.id.redRobot)
+//        whiteImg = findViewById(R.id.whiteRobot)
+
+        counter_clockwise.setOnClickListener {
+            counterClockwiseTurn()
         }
-        whiteImg.setOnClickListener {
-            advanceTurn()
+
+        clockwise.setOnClickListener {
+            clockwiseTurn()
         }
-        yellowImg.setOnClickListener {
-            advanceTurn()
-        }
+//        redImg.setOnClickListener {
+//            advanceTurn()
+//        }
+//        whiteImg.setOnClickListener {
+//            advanceTurn()
+//        }
+//        yellowImg.setOnClickListener {
+//            advanceTurn()
+//        }
     }
-    private fun advanceTurn() {
+    private fun counterClockwiseTurn() {
         turnCount += 1
         if (turnCount > 3) {
             turnCount = 1
+        }
+        setImages()
+    }
+    private fun clockwiseTurn() {
+        turnCount -= 1
+        if (turnCount < 1) {
+            turnCount = 3
         }
         setImages()
     }
