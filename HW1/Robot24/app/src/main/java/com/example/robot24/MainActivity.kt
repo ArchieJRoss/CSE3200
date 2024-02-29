@@ -1,76 +1,89 @@
 package com.example.robot24
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.Toast
-import robot.Robot
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.example.robot24.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private val robotViewModel: RobotViewModel by viewModels()
+    companion object {
+        const val key = "energy"
+    }
 
-    private lateinit var yellowImg : ImageView
-    private lateinit var redImg : ImageView
-    private lateinit var whiteImg : ImageView
-
-    private var turnCount = 0
-//    private val robots listOf()
-
-    private val robots = listOf(
-        Robot(false, R.drawable.red_large, R.drawable.red_small),
-        Robot(false, R.drawable.yellow_large, R.drawable.yellow_small),
-        Robot(false, R.drawable.white_large, R.drawable.white_small)
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        yellowImg = findViewById(R.id.yellowRobot)
-        redImg = findViewById(R.id.redRobot)
-        whiteImg = findViewById(R.id.whiteRobot)
+        val robots = listOf(
+            Robot(binding.redRobot, R.drawable.red_small, R.drawable.red_large, "Red", 0),
+            Robot(binding.whiteRobot, R.drawable.white_small, R.drawable.white_large, "White", 0),
+            Robot(binding.yellowRobot, R.drawable.yellow_small, R.drawable.yellow_large, "Yellow", 0)
+        )
 
-        redImg.setOnClickListener {
-            advanceTurn()
+        binding.redRobot.setOnClickListener {
+            robotViewModel.advanceTurn()
+            saveTurnCounter(robotViewModel.turnCounter)
+            setUI(robots)
         }
-        whiteImg.setOnClickListener {
-            advanceTurn()
+
+        binding.whiteRobot.setOnClickListener {
+            robotViewModel.advanceTurn()
+            saveTurnCounter(robotViewModel.turnCounter)
+            setUI(robots)
         }
-        yellowImg.setOnClickListener {
-            advanceTurn()
+
+        binding.yellowRobot.setOnClickListener {
+            robotViewModel.advanceTurn()
+            saveTurnCounter(robotViewModel.turnCounter)
+            setUI(robots)
+        }
+
+        binding.newActivityButton.setOnClickListener {
+            val intent = Intent(this, RobotPurchaseActivity::class.java)
+            intent.putExtra(key, robots[robotViewModel.turnCounter-1].energy)
+            startActivity(intent)
+        }
+
+
+        robotViewModel.turnCounter = loadTurnCounter();
+        setUI(robots)
+
+    }
+
+
+    private fun setUI(robots: List<Robot>) {
+        val turnCount = robotViewModel.turnCounter
+        if(turnCount == 0) {
+            robots.forEachIndexed { index, robot ->
+                robot.setViewLarge()
+            }
+            return
+        }
+
+
+        robots.forEachIndexed { index, robot ->
+            if ((turnCount - 1) % robots.size == index) {
+                robot.setViewLarge()
+                robot.energy++
+                binding.messageBox.setText("${robot.color} Robot's Turn")
+            } else {
+                robot.setViewSmall()
+            }
         }
     }
-    private fun advanceTurn() {
-        turnCount += 1
-        if (turnCount > 3) {
-            turnCount = 1
-        }
-        setImages()
-    }
-    private fun setImages() {
-        if (turnCount == 1) {
-            redImg.setImageResource(R.drawable.red_large)
-            whiteImg.setImageResource(R.drawable.white_small)
-            yellowImg.setImageResource(R.drawable.yellow_small)
 
-        } else if (turnCount == 2) {
-            whiteImg.setImageResource(R.drawable.white_large)
-            redImg.setImageResource(R.drawable.red_small)
-            yellowImg.setImageResource(R.drawable.yellow_small)
-        } else {
-            yellowImg.setImageResource(R.drawable.yellow_large)
-            redImg.setImageResource(R.drawable.red_small)
-            whiteImg.setImageResource(R.drawable.white_small)
-        }
+    private fun saveTurnCounter(turnCount: Int) {
+        val sharedPrefs = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
+        sharedPrefs.edit().putInt("turnCount", turnCount).apply()
     }
-//    private fun setRobotTurn(){
-//        for(robot in robots){
-//            robot.myTurn = false
-//        }
-//        robots[turnCount - 1].myTurn = true;
-//    }
+
+    private fun loadTurnCounter(): Int {
+        val sharedPrefs = getSharedPreferences("MyAppPreferences", MODE_PRIVATE)
+        return sharedPrefs.getInt("turnCount", 0)
+    }
 }
-
-//    var myTurn : Boolean,
-//    var largeimgRes : Int,
-//    val smallimgRes : Int

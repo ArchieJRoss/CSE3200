@@ -1,4 +1,18 @@
 <resources>
-    <string name="app_name">Robot24</string>
-    <string name="yellow_message">Yellow Clicked</string>
+    <string name="title_activity_purchase">PurchaseActivity</string>
+    <string name="app_name">robots</string>
+    <string name="red_turn">Red Robot\'s Turn</string>
+    <string name="white_turn">White Robot\'s Turn</string>
+    <string name="yellow_turn">Yellow Robot\'s Turn</string>
+    <string name="start_message">Begin the Game</string>
+    <string name="new_activity">Make\npurchase</string>
+    <string name="toast_message">You are about to open a new activity!</string>
+    <string name="reward_a">Reward\nA</string>
+    <string name="reward_b">Reward\nB</string>
+    <string name="reward_c">Reward\nC</string>
+    <string name="reward_a_val">1</string>
+    <string name="reward_b_val">2</string>
+    <string name="reward_c_val">3</string>
+    <string name="purchased">Purchased</string>
+    <string name="insufficient">Insufficient Resources</string>
 </resources>

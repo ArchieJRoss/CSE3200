@@ -21,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RobotPurchaseActivity"
+            android:exported="false"
+            android:label="@string/title_activity_purchase"
+            android:theme="@style/Theme.Robot24" />
     </application>
 
 </manifest>
